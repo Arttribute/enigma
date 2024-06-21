@@ -1,6 +1,5 @@
 import EnigmaAgent from "./EnigmaAgent";
 import EnigmaImage from "./EnigmaImage";
-import PlayerInputBox from "./PlayerInputBox";
 
 export default function GameScreen() {
   return (
@@ -11,7 +10,6 @@ export default function GameScreen() {
         </div>
         <div className="col-span-5 m-1">
           <EnigmaAgent />
-          <PlayerInputBox />
         </div>
       </div>
     </>

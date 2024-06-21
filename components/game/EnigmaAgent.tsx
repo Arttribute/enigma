@@ -2,28 +2,41 @@
 import { useEffect, useRef } from "react";
 import { useChat } from "ai/react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import PlayerInputBox from "./PlayerInputBox";
 
 export default function EnigmaAgent() {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    // Scroll to the bottom whenever messages change
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   return (
     <>
-      <ScrollArea className="h-96  border rounded-lg m-1 p-4">
-        <div className="flex-1 overflow-y-auto ">
+      <ScrollArea className="h-96 border rounded-lg m-1 p-2">
+        <div className="flex flex-col w-46 ">
           {messages.map((message) => (
-            <div
-              key={message.id}
-              className="whitespace-pre-wrap"
-              style={{ color: message.role === "user" ? "black" : "green" }}
-            >
-              <strong>{`${message.role}: `}</strong>
-              {message.content}
+            <div key={message.id} className="flex">
+              {message.role !== "user" && (
+                <Avatar className="h-8 w-8 mt-1">
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="@shadcn"
+                  />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              )}
+              <div
+                className={`w-72 m-1 p-3 rounded-lg text-sm ${
+                  message.role === "user"
+                    ? " bg-amber-50 ml-auto"
+                    : "bg-indigo-50"
+                }`}
+              >
+                {message.content}
+              </div>
               <br />
               <br />
             </div>
@@ -31,15 +44,11 @@ export default function EnigmaAgent() {
           <div ref={bottomRef} />
         </div>
       </ScrollArea>
-
-      <form onSubmit={handleSubmit}>
-        <input
-          className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
-          value={input}
-          placeholder="Say something..."
-          onChange={handleInputChange}
-        />
-      </form>
+      <PlayerInputBox
+        input={input}
+        handleInputChange={handleInputChange}
+        handleSubmit={handleSubmit}
+      />
     </>
   );
 }
