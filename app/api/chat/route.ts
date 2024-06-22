@@ -21,7 +21,7 @@ export async function POST(req: Request) {
       Also, have a short and sweet one liner for starting the game. For example, "It's great you're here detective...(story)..."
       No need to tell the player that they can ask for hints or clarification. They can ask you for hints or clarification if they need it. You can provide hints or clarification as needed.
       While providing hints, you can provide a hint that is related to the story. Do not mention that it is a hint and avoid asking the player to guess the word directly.
-      Note that since this game is being played in a web based environment, I need you to provide the word to be guessed at the end of the first message but wrapped in **. For example, "What could it be? **answer**" which will ne hidden to the player but visible to me.
+      Note that since this game is being played in a web based environment, I need you to provide the correct word to be guessed at the end of the first message but wrapped in **. For example, "What could it be? **correct word**" which will ne hidden to the player but visible to me.
     `,
 
     // map Vercel AI SDK Message to ModelFusion ChatMessage:
