@@ -1,6 +1,5 @@
 import { getSyncEntities } from "@dojoengine/state";
 import { DojoConfig, DojoProvider } from "@dojoengine/core";
-// import * as torii from "@dojoengine/torii-client";
 import { createClientComponents } from "../createClientComponents";
 import { createSystemCalls } from "../createSystemCalls";
 import { defineContractComponents } from "./contractComponents";
@@ -12,8 +11,6 @@ import { BurnerManager } from "@dojoengine/create-burner";
 export type SetupResult = Awaited<ReturnType<typeof setup>>;
 
 export async function setup(torii: any, { ...config }: DojoConfig) {
-  // const torii = await import("@dojoengine/torii-client");
-
   // torii client
   const toriiClient = await torii.createClient([], {
     rpcUrl: config.rpcUrl,

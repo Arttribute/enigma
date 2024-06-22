@@ -36,6 +36,36 @@ computed = []
 init_calldata = []
 name = "dojo_starter::systems::actions::actions"
 
+[[contracts]]
+kind = "DojoContract"
+address = "0x59e65d48e6163db10cd88d83a6e4313859eabae3709e349b2d5ff805c75c4b8"
+class_hash = "0x637a3d7b538a78cca73cd723bb05384e19d27877775684fa62b5314c9306824"
+original_class_hash = "0x637a3d7b538a78cca73cd723bb05384e19d27877775684fa62b5314c9306824"
+base_class_hash = "0x22f3e55b61d86c2ac5239fa3b3b8761f26b9a5c0b5f61ddbd5d756ced498b46"
+abi = "manifests/dev/abis/deployments/contracts/dojo_starter_systems_play_play.json"
+reads = []
+writes = []
+computed = []
+init_calldata = []
+name = "dojo_starter::systems::play::play"
+
+[[models]]
+kind = "DojoModel"
+class_hash = "0x4597adc7b42340205736b9bdaeb59c0f9af931e17f0de437bb8a23ee24f0e47"
+original_class_hash = "0x4597adc7b42340205736b9bdaeb59c0f9af931e17f0de437bb8a23ee24f0e47"
+abi = "manifests/dev/abis/deployments/models/dojo_starter_models_leaderboard_leaderboard.json"
+name = "dojo_starter::models::leaderboard::leaderboard"
+
+[[models.members]]
+name = "player"
+type = "ContractAddress"
+key = true
+
+[[models.members]]
+name = "score"
+type = "u8"
+key = false
+
 [[models]]
 kind = "DojoModel"
 class_hash = "0x13fc796dd2d767ca4051ee20d673074f74b6e6b072bef1926ba429e427c8080"
