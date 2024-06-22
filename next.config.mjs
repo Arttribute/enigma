@@ -30,6 +30,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "cdn1.iconfinder.com",
       },
+      {
+        protocol: "https",
+        hostname: "github.com",
+      },
     ],
   },
 };
