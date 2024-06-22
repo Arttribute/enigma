@@ -1,14 +1,21 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { useChat } from "ai/react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import PlayerInputBox from "./PlayerInputBox";
 
-export default function EnigmaAgent() {
+export default function EnigmaAgent({
+  correctAnswer,
+  setCorrectAnswer,
+  setPlayerAnswer,
+}: {
+  correctAnswer: string;
+  setCorrectAnswer: (value: string) => void;
+  setPlayerAnswer: (value: string) => void;
+}) {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
   const bottomRef = useRef<HTMLDivElement | null>(null);
-  const [correctAnswer, setCorrectAnswer] = useState<string>("");
   const hiddenPattern = /\*\*(.*?)\*\*/;
 
   useEffect(() => {
@@ -56,7 +63,6 @@ export default function EnigmaAgent() {
             </div>
           ))}
           <div ref={bottomRef} />
-          answer: {correctAnswer}
         </div>
       </ScrollArea>
       <PlayerInputBox
