@@ -5,11 +5,17 @@ export default function PlayerInput({
   input,
   handleInputChange,
   handleSubmit,
+  setPlayerAnswer,
 }: {
   input: string;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  setPlayerAnswer: (value: string) => void;
 }) {
+  const handleSubmitAnswer = (e: React.FormEvent<HTMLFormElement>) => {
+    handleSubmit(e);
+    setPlayerAnswer(input);
+  };
   return (
     <>
       <div className="w-full m-1 mt-2">
@@ -20,7 +26,7 @@ export default function PlayerInput({
           value={input}
           onChange={handleInputChange}
         />
-        <Button className="w-full mt-2" onClick={handleSubmit as any}>
+        <Button className="w-full mt-2" onClick={handleSubmitAnswer as any}>
           Submit
         </Button>
       </div>

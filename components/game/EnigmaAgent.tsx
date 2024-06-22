@@ -69,6 +69,7 @@ export default function EnigmaAgent({
         input={input}
         handleInputChange={handleInputChange}
         handleSubmit={handleSubmit}
+        setPlayerAnswer={setPlayerAnswer}
       />
     </>
   );

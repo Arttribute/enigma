@@ -7,7 +7,7 @@ export const useGameLogic = () => {
   const [generationId, setGenerationId] = useState<string>("");
   const [imagesData, setImagesData] = useState<any[]>([]);
   const [correctAnswer, setCorrectAnswer] = useState<string>("");
-  const [loadingImage, setLoadingImage] = useState<boolean>(false);
+  const [mysterySolved, setMysterySolved] = useState<boolean>(false);
   const [playerAnswer, setPlayerAnswer] = useState<string>("");
 
   useEffect(() => {
@@ -15,6 +15,15 @@ export const useGameLogic = () => {
       generatePuzzleImage(correctAnswer);
     }
   }, [correctAnswer]);
+
+  useEffect(() => {
+    if (playerAnswer && correctAnswer && playerAnswer === correctAnswer) {
+      setMysterySolved(true);
+    }
+    console.log("playerAnswer", playerAnswer);
+    console.log("correctAnswer", correctAnswer);
+    console.log("mysterySolved", mysterySolved);
+  }, [playerAnswer, correctAnswer]);
 
   useEffect(() => {
     if (generationId && imagesData.length === 0) {
@@ -61,7 +70,9 @@ export const useGameLogic = () => {
     correctAnswer,
     playerAnswer,
     imagesData,
+    mysterySolved,
     setCorrectAnswer,
     setPlayerAnswer,
+    setMysterySolved,
   };
 };
