@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import StartGameScreen from "./StartGameScreen";
 export default function EnigmaImage({ imagesData }: { imagesData: string[] }) {
   return (
     <>
@@ -13,8 +13,8 @@ export default function EnigmaImage({ imagesData }: { imagesData: string[] }) {
             className="m-2 rounded-lg"
           />
         ) : (
-          <div className="flex justify-center items-center h-full w-full p-48">
-            <p className="text-lg text-gray-500">Loading Image..</p>
+          <div className="flex justify-center items-center h-full w-full p-8">
+            <StartGameScreen />
           </div>
         )}
       </div>
