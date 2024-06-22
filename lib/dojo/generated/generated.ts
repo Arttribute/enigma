@@ -2,13 +2,12 @@
 
 import { Account, AccountInterface } from "starknet";
 import { DojoProvider } from "@dojoengine/core";
-import { Direction } from "..";
 
 export type IWorld = Awaited<ReturnType<typeof setupWorld>>;
 
 export interface MoveProps {
   account: Account | AccountInterface;
-  direction: Direction;
+  score: number;
 }
 
 export async function setupWorld(provider: DojoProvider) {
@@ -26,12 +25,12 @@ export async function setupWorld(provider: DojoProvider) {
       }
     };
 
-    const move = async ({ account, direction }: MoveProps) => {
+    const move = async ({ account, score }: MoveProps) => {
       try {
         return await provider.execute(account, {
           contractName: "actions",
           entrypoint: "move",
-          calldata: [direction],
+          calldata: [score],
         });
       } catch (error) {
         console.error("Error executing move:", error);

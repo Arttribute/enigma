@@ -1,7 +1,6 @@
 import { useComponentValue } from "@dojoengine/react";
 import { Entity } from "@dojoengine/recs";
 import { useEffect, useState } from "react";
-import { Direction } from "@/lib/dojo";
 import { getEntityIdFromKeys } from "@dojoengine/utils";
 import { useDojo } from "@/lib/dojo/useDojo";
 
@@ -9,7 +8,7 @@ function App() {
   const {
     setup: {
       systemCalls: { spawn, move },
-      clientComponents: { Position, Moves, DirectionsAvailable, Leaderboard },
+      clientComponents: { Leaderboard },
     },
     account,
   } = useDojo();
@@ -25,12 +24,8 @@ function App() {
   ]) as Entity;
 
   // get current component values
-  const position = useComponentValue(Position, entityId);
-  const moves = useComponentValue(Moves, entityId);
-  const directions = useComponentValue(DirectionsAvailable, entityId);
   const leaderboard = useComponentValue(Leaderboard, entityId);
 
-  console.log("directions", directions);
   console.log("leaderboard", leaderboard);
 
   const handleRestoreBurners = async () => {
@@ -105,57 +100,7 @@ function App() {
 
       <div className="card">
         <button onClick={() => spawn(account.account)}>Spawn</button>
-        <div>Moves Left: {moves ? `${moves.remaining}` : "Need to Spawn"}</div>
-        <div>
-          Position:{" "}
-          {position
-            ? `${position?.vec.x}, ${position?.vec.y}`
-            : "Need to Spawn"}
-        </div>
-
-        <div>{moves && moves.last_direction}</div>
-
-        <div>
-          <div>Available Positions</div>
-          {directions?.directions.map((a: any, index: any) => (
-            <div key={index} className="">
-              {a}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="card">
-        <div>
-          <button
-            onClick={() =>
-              position && position.vec.y > 0
-                ? move(account.account, Direction.Up)
-                : console.log("Reach the borders of the world.")
-            }
-          >
-            Move Up
-          </button>
-        </div>
-        <div>
-          <button
-            onClick={() =>
-              position && position.vec.x > 0
-                ? move(account.account, Direction.Left)
-                : console.log("Reach the borders of the world.")
-            }
-          >
-            Move Left
-          </button>
-          <button onClick={() => move(account.account, Direction.Right)}>
-            Move Right
-          </button>
-        </div>
-        <div>
-          <button onClick={() => move(account.account, Direction.Down)}>
-            Move Down
-          </button>
-        </div>
+        <button onClick={() => move(account.account, 40)}>Move</button>
       </div>
     </>
   );
