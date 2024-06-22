@@ -12,7 +12,7 @@ export default function ScoreDisplay({
   mysteriesCount: number;
 }) {
   return (
-    <div className=" mt-1 p-0.5 rounded-lg w-full">
+    <div className=" mt-1 mx-3 p-0.5 rounded-lg w-full">
       <div className="flex flex-col items-center p-3 rounded-lg">
         <p className="text-4xl font-semibold">{score}</p>
         <p className="text-sm font-medium ">Score</p>

@@ -38,6 +38,16 @@ export default function EnigmaAgent({
     <>
       <ScrollArea className="h-96 border rounded-lg m-1 p-2">
         <div className="flex flex-col w-46 ">
+          <div className="flex">
+            <Avatar className="h-8 w-8 mt-1">
+              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <div className="bg-indigo-50 w-72 m-1 p-3 rounded-lg text-sm">
+              Hi, I'm the enigma agent. Let me know if your ready to begin by
+              typing **start**.
+            </div>
+          </div>
           {messages.map((message) => (
             <div key={message.id} className="flex">
               {message.role !== "user" && (

@@ -35,7 +35,7 @@ export default function SuccessDialog({
           <div className="p-2 flex flex-col items-center justify-center">
             <Image
               src={imageUrl}
-              width={400}
+              width={500}
               height={400}
               alt={"game"}
               className="aspect-square rounded-md m-1"
