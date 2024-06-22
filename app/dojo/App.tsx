@@ -9,7 +9,7 @@ function App() {
   const {
     setup: {
       systemCalls: { spawn, move },
-      clientComponents: { Position, Moves, DirectionsAvailable },
+      clientComponents: { Position, Moves, DirectionsAvailable, Leaderboard },
     },
     account,
   } = useDojo();
@@ -28,8 +28,10 @@ function App() {
   const position = useComponentValue(Position, entityId);
   const moves = useComponentValue(Moves, entityId);
   const directions = useComponentValue(DirectionsAvailable, entityId);
+  const leaderboard = useComponentValue(Leaderboard, entityId);
 
   console.log("directions", directions);
+  console.log("leaderboard", leaderboard);
 
   const handleRestoreBurners = async () => {
     try {
