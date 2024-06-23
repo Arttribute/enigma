@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import { createClient } from "@/utils/supabase/client"; // Import Supabase client
+import { connect, disconnect } from "starknetkit";
 
 interface Props {
   action: "Connect account" | "Disconnect";
@@ -31,6 +32,10 @@ export default function ConnectButton({
   setAccount,
 }: Props) {
   const [disabled, setDisabled] = useState(false);
+  const [connection, setConnection] = useState<any>(null);
+  const [provider, setProvider] = useState<any>(null);
+  const [address, setAddress] = useState<any>(null);
+
   const supabase = createClient(); // Initialize Supabase client
 
   const fetchUserData = async (address: string) => {
@@ -53,31 +58,14 @@ export default function ConnectButton({
   const connectWallet = async () => {
     try {
       setDisabled(true);
-      const web3Modal = new Web3Modal({
-        network: "sepolia",
-        cacheProvider: true,
-        providerOptions: {},
+      const connection: ModalResult | undefined = await connect({
+        webWalletUrl: "https://web.argent.xyz",
       });
-      const instance = await web3Modal.connect();
-      const provider = new ethers.BrowserProvider(instance);
 
-      const signer = await provider.getSigner();
-      const address = await signer.getAddress();
-
-      let ensName;
-      try {
-        ensName = await provider.lookupAddress(address);
-      } catch (error) {
-        console.error("Error fetching ENS name:", error);
-      }
-
-      const userData = await fetchUserData(address);
-      if (userData) {
-        const displayName = userData.ens_username || address;
-        const profilePicture = getRandomProfilePicture();
-        const updatedUserData = { ...userData, displayName, profilePicture };
-        setAccount(updatedUserData);
-        localStorage.setItem("user", JSON.stringify(updatedUserData)); // Update localStorage with profile picture
+      if (connection && connection.isConnected) {
+        setConnection(connection);
+        setProvider(connection?.account);
+        setAddress(connection.selectedAddress);
       }
     } catch (error) {
       console.error("Error connecting wallet:", error);
