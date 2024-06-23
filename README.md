@@ -28,16 +28,48 @@ Enigma leverages a combination of modern web technologies and blockchain mechani
 
 ## Running it Locally
 
-First, run the development server:
+### Setting Up Dojo Engine
+
+To get Dojo working, follow the steps below:
+
+### Prerequisites
+
+- Ensure you have the necessary dependencies installed, including `cargo`, `sozo`, `katana`, and `torii`.
+
+### Steps
+
+1. Clone the repository.
+2. Go to `/dojo/Scarb.toml` and set `rpc_url` to `http://localhost:5050/`
+3. Open three terminals and perform the following steps:
+
+**Terminal 1:**
 
 ```bash
+cd dojo
+sozo build
+katana --disable-fee --allowed-origins "*"
+```
+
+**Terminal 2:**
+
+```bash
+cd dojo
+sozo migrate apply
+torii --world 0xb4079627ebab1cd3cf9fd075dda1ad2454a7a448bf659591f259efa2519b18 --allowed-origins "*"
+```
+
+After running this, copy the contract address from the output of `sozo migrate apply` and run the following command:
+
+```bash
+sozo auth grant writer Leaderboard,[CONTRACT_ADDRESS]
+```
+
+**Terminal 3:**
+
+```bash
+npm install
+npm run create-components
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
