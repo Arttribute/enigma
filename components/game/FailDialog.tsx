@@ -29,7 +29,7 @@ export default function FailDialog({
     setLoadingLeave(false);
   };
   return (
-    <Dialog open={open}>
+    <Dialog open={false}>
       <DialogContent className="w-full">
         <div className="w-full">
           <div className="p-2 flex flex-col items-center justify-center">

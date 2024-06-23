@@ -1,12 +1,15 @@
 "use client";
 import * as React from "react";
 import Image from "next/image";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import { Loader2 } from "lucide-react";
+import { connect, disconnect } from "starknetkit";
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { on } from "events";
 
 export default function SuccessDialog({
   open,
@@ -22,10 +25,33 @@ export default function SuccessDialog({
   onLeaveGame: () => void;
 }) {
   const [loadingLeave, setLoadingLeave] = React.useState(false);
+  const [connection, setConnection] = useState<any>(null);
+  const [provider, setProvider] = useState<any>(null);
+  const [address, setAddress] = useState<any>(null);
+  const [disabled, setDisabled] = useState(false);
 
-  const handleLeavegame = async () => {
-    setLoadingLeave(true);
-    await onLeaveGame();
+  const handleClaimAndLeave = async () => {
+    await onContinue();
+    const connection: any = await connect({
+      webWalletUrl: "https://web.argent.xyz",
+    });
+
+    if (connection && connection.isConnected) {
+      setConnection(connection);
+      setProvider(connection.account);
+      setAddress(connection.selectedAddress);
+      const tx = await connection.account.execute({
+        //let's assume this is an erc20 contract
+        contractAddress: "0x...",
+        selector: "transfer",
+        calldata: [
+          "0x...",
+          // ...
+        ],
+      });
+      await tx.wait();
+    }
+
     setLoadingLeave(false);
   };
   return (
@@ -52,6 +78,13 @@ export default function SuccessDialog({
               >
                 Continue
                 <ChevronRight size={20} className="ml-0.5 w-4 h-4" />
+              </Button>
+              <Button
+                className="rounded-lg mt-1 border-gray-500 w-full"
+                onClick={handleClaimAndLeave}
+              >
+                Claim NFT and End game
+                {loadingLeave && <Loader2 size={20} className="animate-spin" />}
               </Button>
             </div>
           </div>

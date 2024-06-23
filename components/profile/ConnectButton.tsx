@@ -58,7 +58,7 @@ export default function ConnectButton({
   const connectWallet = async () => {
     try {
       setDisabled(true);
-      const connection: ModalResult | undefined = await connect({
+      const connection: any = await connect({
         webWalletUrl: "https://web.argent.xyz",
       });
 
