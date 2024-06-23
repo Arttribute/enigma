@@ -21,6 +21,10 @@ const BurnerAccounts = () => {
     isError: false,
   });
 
+  const localAcc = localStorage.getItem("account");
+
+  const localAccount = localAcc ? JSON.parse(localAcc) : null;
+
   const handleRestoreBurners = async () => {
     try {
       await account?.applyFromClipboard();
@@ -48,46 +52,59 @@ const BurnerAccounts = () => {
 
   return (
     <>
-      <Button disabled={account?.isDeploying} onClick={() => account?.create()}>
-        {account?.isDeploying ? "Deploying Burner" : "Create Burner"}
-      </Button>
-      {account && account?.list().length > 0 && (
-        <Button onClick={async () => await account?.copyToClipboard()}>
-          Save Burners to Clipboard
-        </Button>
+      {!localAccount && (
+        <>
+          <Button
+            disabled={account?.isDeploying}
+            onClick={() => account?.create()}
+          >
+            {account?.isDeploying ? "Deploying Burner" : "Create Burner"}
+          </Button>
+          {account && account?.list().length > 0 && (
+            <Button onClick={async () => await account?.copyToClipboard()}>
+              Save Burners to Clipboard
+            </Button>
+          )}
+          <Button onClick={handleRestoreBurners}>
+            Restore Burners from Clipboard
+          </Button>
+          {clipboardStatus.message && (
+            <div
+              className={
+                clipboardStatus.isError ? "text-error" : "text-success"
+              }
+            >
+              {clipboardStatus.message}
+            </div>
+          )}
+
+          <div className="flex justify-between">
+            <Select
+              value={account ? account.account.address : ""}
+              onValueChange={(val) => account.select(val)}
+            >
+              <SelectTrigger className="w-[200px]">
+                <SelectValue placeholder="Select Signer" />
+              </SelectTrigger>
+              <SelectContent className="">
+                {account?.list().map((account, index) => (
+                  <SelectItem value={account.address} key={index}>
+                    {account.address}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Button onClick={() => account.clear()}>Clear burners</Button>
+          </div>
+        </>
       )}
-      <Button onClick={handleRestoreBurners}>
-        Restore Burners from Clipboard
+
+      <Button
+        onClick={() => spawn(localAccount ? localAccount : account.account)}
+      >
+        Init
       </Button>
-      {clipboardStatus.message && (
-        <div
-          className={clipboardStatus.isError ? "text-error" : "text-success"}
-        >
-          {clipboardStatus.message}
-        </div>
-      )}
-
-      <div className="flex justify-between">
-        <Select
-          value={account ? account.account.address : ""}
-          onValueChange={(val) => account.select(val)}
-        >
-          <SelectTrigger className="w-[200px]">
-            <SelectValue placeholder="Select Signer" />
-          </SelectTrigger>
-          <SelectContent className="">
-            {account?.list().map((account, index) => (
-              <SelectItem value={account.address} key={index}>
-                {account.address}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        <Button onClick={() => account.clear()}>Clear burners</Button>
-      </div>
-
-      <Button onClick={() => spawn(account.account)}>Init</Button>
     </>
   );
 };

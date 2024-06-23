@@ -68,18 +68,24 @@ function App() {
     checkLeaderboardOnChain();
   }, [mysterySolved, mysteryFailed]);
 
-  const saveToLeaderboard = async (name: string) => {
+  const saveToLeaderboard = async (web3address: string, name: string) => {
     const supabase = createClient();
 
-    const { error } = await supabase.from("leaderboard").insert({
-      web3address: account.account.address.toString(),
-      name,
-      score,
-    });
+    const { data, error } = await supabase
+      .from("leaderboard")
+      .insert({
+        web3address: web3address
+          ? web3address
+          : account.account.address.toString(),
+        name,
+        score,
+      })
+      .select();
 
     if (error) {
       console.error(error);
     }
+    console.log(data);
   };
 
   return (

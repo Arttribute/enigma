@@ -20,14 +20,14 @@ export default function FailDialog({
   imageUrl: string;
   correctAnswer: string;
   onContinue: () => void;
-  onLeaveGame: (name: string) => void;
+  onLeaveGame: (web3address: string, name: string) => void;
 }) {
   const [loadingLeave, setLoadingLeave] = React.useState(false);
   const [name, setName] = React.useState("");
 
   const handleLeavegame = async () => {
     setLoadingLeave(true);
-    await onLeaveGame(name);
+    await onLeaveGame("", name || "Anonymous");
     setLoadingLeave(false);
   };
   return (

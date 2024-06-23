@@ -26,8 +26,12 @@ export default function Home() {
         setConnection(connection);
         setProvider(connection?.account);
         setAddress(connection.selectedAddress);
+        localStorage.setItem(
+          "account",
+          JSON.stringify(connection.wallet.account)
+        );
       }
-      router.push("/play");
+      router.push(`/play`);
     } catch (error) {
       console.error("Error connecting wallet:", error);
     } finally {
