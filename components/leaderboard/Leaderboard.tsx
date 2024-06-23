@@ -45,7 +45,7 @@ export default function LeaderBoard() {
         <p className="text-gray-700">Live leaderboard</p>
         <Trophy className="h-4 w-4 ml-1 text-amber-500" />
       </div>
-      <ScrollArea className="m-2 border rounded-lg p-4 w-72 h-72">
+      <ScrollArea className="m-2 border border-black rounded-lg p-4 h-72 bg-white">
         <Table>
           <TableHeader>
             <TableRow>

@@ -8,7 +8,7 @@ import { Loader2 } from "lucide-react";
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
-export default function SuccessDialog({
+export default function FailDialog({
   open,
   imageUrl,
   correctAnswer,

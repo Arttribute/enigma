@@ -36,7 +36,7 @@ export default function EnigmaAgent({
 
   return (
     <>
-      <ScrollArea className="h-96 border rounded-lg m-1 p-2">
+      <ScrollArea className="h-96 border border-black bg-white rounded-lg m-1 p-2">
         <div className="flex flex-col w-46 ">
           <div className="flex">
             <Avatar className="h-8 w-8 mt-1">
