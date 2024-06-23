@@ -7,18 +7,30 @@ export default function GameScreen({
   playerAnswer,
   setPlayerAnswer,
   imagesData,
+  score,
+  timeGiven,
+  setTimeGiven,
+  mysterySolved,
 }: {
   correctAnswer: string;
   setCorrectAnswer: (value: string) => void;
   playerAnswer: string;
   setPlayerAnswer: (value: string) => void;
   imagesData: string[];
+  score: number;
+  timeGiven: number;
+  setTimeGiven: (value: number) => void;
+  mysterySolved: boolean;
 }) {
   return (
     <>
       <div className="grid grid-cols-12">
         <div className="col-span-7 mr-3">
-          <EnigmaImage imagesData={imagesData} />
+          <EnigmaImage
+            imagesData={imagesData}
+            timeGiven={timeGiven}
+            setTimeGiven={setTimeGiven}
+          />
         </div>
         <div className="col-span-5 m-1">
           <EnigmaAgent

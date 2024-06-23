@@ -20,7 +20,7 @@ export default function StartGameScreen() {
         <div className=" py-12 px-10 m-4  rounded-xl w-96 ">
           <div className=" flex flex-col items-center justify-center ">
             <div className="text-center mb-10">
-              <p className="text-lg  ">Welcome to Enigma Mystery Game</p>
+              <p className="text-lg  ">The AI mystery game</p>
 
               <p className="text-sm text-gray-500 mt-8">
                 Your goal is to solve the presented mystery before the image

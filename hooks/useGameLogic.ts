@@ -8,7 +8,11 @@ export const useGameLogic = () => {
   const [imagesData, setImagesData] = useState<any[]>([]);
   const [correctAnswer, setCorrectAnswer] = useState<string>("");
   const [mysterySolved, setMysterySolved] = useState<boolean>(false);
+  const [mysteryFailed, setMysteryFailed] = useState<boolean>(false);
   const [playerAnswer, setPlayerAnswer] = useState<string>("");
+  const [score, setScore] = useState<number>(0);
+  const [guesses, setGuesses] = useState<number>(0);
+  const [timeGiven, setTimeGiven] = useState<number>(45);
 
   useEffect(() => {
     if (correctAnswer) {
@@ -19,11 +23,22 @@ export const useGameLogic = () => {
   useEffect(() => {
     if (playerAnswer && correctAnswer && playerAnswer === correctAnswer) {
       setMysterySolved(true);
+      setScore(score + 100);
+      setTimeGiven(45);
+      setGuesses(0);
     }
-    console.log("playerAnswer", playerAnswer);
-    console.log("correctAnswer", correctAnswer);
-    console.log("mysterySolved", mysterySolved);
   }, [playerAnswer, correctAnswer]);
+
+  useEffect(() => {
+    setGuesses(guesses + 1);
+  }, [playerAnswer]);
+
+  useEffect(() => {
+    if (correctAnswer !== "" && timeGiven === 0) {
+      setMysteryFailed(true);
+      setGuesses(0);
+    }
+  }, [correctAnswer, timeGiven]);
 
   useEffect(() => {
     if (generationId && imagesData.length === 0) {
@@ -66,13 +81,31 @@ export const useGameLogic = () => {
       console.error(error);
     }
   };
+
+  const handleNextMystery = () => {
+    setCorrectAnswer("");
+    setPlayerAnswer("");
+    setMysterySolved(false);
+    setMysteryFailed(false);
+    setGenerationId("");
+    setImagesData([]);
+  };
   return {
     correctAnswer,
     playerAnswer,
     imagesData,
     mysterySolved,
+    score,
+    guesses,
+    timeGiven,
+    mysteryFailed,
     setCorrectAnswer,
     setPlayerAnswer,
+    setScore,
+    setGuesses,
     setMysterySolved,
+    setTimeGiven,
+    setMysteryFailed,
+    handleNextMystery,
   };
 };
