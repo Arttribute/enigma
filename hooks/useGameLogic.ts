@@ -12,11 +12,12 @@ export const useGameLogic = () => {
   const [playerAnswer, setPlayerAnswer] = useState<string>("");
   const [score, setScore] = useState<number>(0);
   const [guesses, setGuesses] = useState<number>(0);
-  const [timeGiven, setTimeGiven] = useState<number>(45);
+  const [timeGiven, setTimeGiven] = useState<number>(60);
 
   useEffect(() => {
     if (correctAnswer) {
       generatePuzzleImage(correctAnswer);
+      setTimeGiven(60);
     }
   }, [correctAnswer]);
 
@@ -24,7 +25,7 @@ export const useGameLogic = () => {
     if (playerAnswer && correctAnswer && playerAnswer === correctAnswer) {
       setMysterySolved(true);
       setScore(score + 100);
-      setTimeGiven(45);
+      setTimeGiven(60);
       setGuesses(0);
     }
   }, [playerAnswer, correctAnswer]);
