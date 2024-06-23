@@ -1,6 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Enigma
 
-## Getting Started
+Enigma is an onchain mystery game blending captivating stories with AI-generated art. Decipher clues, guess the hidden objects, and race against time to secure your place on the leaderboard and claim NFTs powered by Starknet, Llama3 and Dojo!
+
+## Project Description
+
+Enigma is an immersive mystery-solving game that blends story-driven clues with AI-generated art, challenging players to guess objects or items. Each game session presents players with narrative hints and corresponding AI-generated images that indirectly represent the target object.
+
+Enigma's scoring system and leaderboard are managed through Dojo, with Starknet smart contracts ensuring fair play and accurate tracking of player interactions with the AI Game agent. Scores are determined by the speed and the number of guesses made, rewarding players who solve mysteries quickly and with fewer attempts.
+
+## How it's Made
+
+Enigma leverages a combination of modern web technologies and blockchain mechanisms to deliver a seamless and fair gaming experience:
+
+**Next.js:** The frontend of Enigma is built using Next.js, providing a responsive and efficient user interface that enhances player interaction and engagement.
+
+**Llama 3:** Serving as the game agent, Llama 3 generates the story-driven hints. By analyzing player performance, Llama 3 adjusts the difficulty level of each challenge, ensuring a personalized gaming experience.
+
+**Astria API:** AI-generated images are created using the Astria Stability Diffusion API. These images act as indirect visual hints, adding depth and challenge to the guessing game.
+
+**Dojo:**
+
+**Argent Wallet SDK** Argent web wallet SDK provides seamless authentication and transaction capabilities for players, enhancing the overall user experience and ensuring secure management of player data and game-related transactions.
+
+## Running it Locally
 
 First, run the development server:
 
@@ -15,22 +37,3 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
