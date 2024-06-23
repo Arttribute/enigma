@@ -11,7 +11,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { Trophy } from "lucide-react";
 
-const gamescores = [
+let gamescores = [
   {
     _id: "1",
     player: {
@@ -38,7 +38,13 @@ const gamescores = [
   },
 ];
 
-export default function LeaderBoard() {
+export default function LeaderBoard({ newPlay }: { newPlay: any }) {
+  gamescores.push({
+    _id: newPlay.player,
+    player: { name: "New Guy", picture: "https://github.com/shadcn.png" },
+    score_value: newPlay.score,
+  });
+  gamescores.sort((a, b) => b.score_value - a.score_value);
   return (
     <>
       <div className=" flex ml-2 mt-2 font-semibold items-center justify-center">
