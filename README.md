@@ -22,7 +22,7 @@ Enigma leverages a combination of modern web technologies and blockchain mechani
 
 **Argent Wallet SDK :** Argent web wallet SDK provides seamless authentication and transaction capabilities for players, enhancing the overall user experience and ensuring secure management of player data and game-related transactions.
 
-**Dojo Engine :** The Dojo Engine in this project facilitates the management of player scores on-chain within a game environment by enabling player spawning, score updating, and leaderboard management. This is achieved through the use of models and actions in the Dojo back-end.
+**Dojo Engine :** The Dojo Engine in this project facilitates the management of player scores on-chain within a game environment by enabling player spawning, score updating, and leaderboard management. This is achieved through the use of models and systems in the Dojo back-end.
 
 **dojo.js :** This is the JavaScript package that connects the Next.js app with the Dojo back-end allowing seamless interaction between the JavaScript front-end and Cairo back-end through the use of hooks and generators, keeping everything live and up-to-date.
 
