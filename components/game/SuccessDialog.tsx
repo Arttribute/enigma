@@ -7,6 +7,7 @@ import { ChevronRight } from "lucide-react";
 import { Loader2 } from "lucide-react";
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Input } from "../ui/input";
 
 export default function SuccessDialog({
   open,
@@ -19,13 +20,14 @@ export default function SuccessDialog({
   imageUrl: string;
   correctAnswer: string;
   onContinue: () => void;
-  onLeaveGame: () => void;
+  onLeaveGame: (name: string) => Promise<void>;
 }) {
   const [loadingLeave, setLoadingLeave] = React.useState(false);
+  const [name, setName] = React.useState("");
 
   const handleLeavegame = async () => {
     setLoadingLeave(true);
-    await onLeaveGame();
+    await onLeaveGame(name ?? "Anonymous");
     setLoadingLeave(false);
   };
   return (
@@ -44,7 +46,13 @@ export default function SuccessDialog({
             <div className="bg-amber-50 m-1 p-3 rounded-lg ">
               Solution: {correctAnswer}
             </div>
-            <div className="flex flex-col items-center justify-center w-full">
+            <Input
+              type="text"
+              placeholder="Stand out with a unique name!"
+              onChange={(e) => setName(e.target.value)}
+              className="w-full"
+            />
+            <div className="flex items-center  gap-2 justify-center w-full">
               <Button
                 variant="outline"
                 className="rounded-lg  mt-1 w-full border-gray-400"
@@ -52,6 +60,17 @@ export default function SuccessDialog({
               >
                 Continue
                 <ChevronRight size={20} className="ml-0.5 w-4 h-4" />
+              </Button>
+              <Button
+                variant="outline"
+                className="rounded-lg  mt-1 w-full border-gray-400"
+                disabled={loadingLeave}
+                onClick={handleLeavegame}
+              >
+                {loadingLeave && (
+                  <Loader2 className="animate-spin w-4 h-4 mr-2" />
+                )}
+                Save Score
               </Button>
             </div>
           </div>

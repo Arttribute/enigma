@@ -24,6 +24,7 @@ import {
 import { Button } from "@/components/ui/button";
 import BurnerAccounts from "@/components/game/BurnerAccounts";
 import { useEffect } from "react";
+import { createClient } from "@/utils/supabase/client";
 
 function App() {
   const {
@@ -59,13 +60,27 @@ function App() {
   console.log("leaderboard", leaderboard);
 
   useEffect(() => {
-    async function saveLeaderboard() {
+    async function checkLeaderboardOnChain() {
       if (mysterySolved || mysteryFailed) {
         move(account.account, score);
       }
     }
-    saveLeaderboard();
+    checkLeaderboardOnChain();
   }, [mysterySolved, mysteryFailed]);
+
+  const saveToLeaderboard = async (name: string) => {
+    const supabase = createClient();
+
+    const { error } = await supabase.from("leaderboard").insert({
+      web3address: account.account.address.toString(),
+      name,
+      score,
+    });
+
+    if (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -83,8 +98,12 @@ function App() {
           <DialogContent className="max-w-sm">
             {leaderboard ? (
               <>
-                <ScoreDisplay score={score} highscore={0} mysteriesCount={0} />
-                <LeaderBoard newPlay={leaderboard} />
+                <ScoreDisplay
+                  score={leaderboard.score}
+                  highscore={0}
+                  mysteriesCount={0}
+                />
+                <LeaderBoard />
               </>
             ) : (
               <BurnerAccounts />
@@ -108,14 +127,14 @@ function App() {
             correctAnswer={correctAnswer}
             imageUrl={imagesData[0]}
             onContinue={handleNextMystery}
-            onLeaveGame={() => {}}
+            onLeaveGame={saveToLeaderboard}
           />
           <FailDialog
             open={mysteryFailed}
             correctAnswer={correctAnswer}
             imageUrl={imagesData[0]}
             onContinue={handleNextMystery}
-            onLeaveGame={() => {}}
+            onLeaveGame={saveToLeaderboard}
           />
         </div>
       </div>

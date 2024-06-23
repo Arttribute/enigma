@@ -23,7 +23,7 @@ export const useGameLogic = () => {
   useEffect(() => {
     if (playerAnswer && correctAnswer && playerAnswer === correctAnswer) {
       setMysterySolved(true);
-      setScore(score + 100);
+      setScore((prevScore) => prevScore + 100 + timeGiven - guesses * 2);
       setTimeGiven(45);
       setGuesses(0);
     }
@@ -31,11 +31,13 @@ export const useGameLogic = () => {
 
   useEffect(() => {
     setGuesses(guesses + 1);
+    setScore((prevScore) => prevScore - 5);
   }, [playerAnswer]);
 
   useEffect(() => {
     if (correctAnswer !== "" && timeGiven === 0) {
       setMysteryFailed(true);
+      setScore(guesses);
       setGuesses(0);
     }
   }, [correctAnswer, timeGiven]);
@@ -90,6 +92,7 @@ export const useGameLogic = () => {
     setGenerationId("");
     setImagesData([]);
   };
+
   return {
     correctAnswer,
     playerAnswer,
