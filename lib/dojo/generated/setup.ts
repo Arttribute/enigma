@@ -21,7 +21,6 @@ export async function setup(torii: any, { ...config }: DojoConfig) {
 
   // create contract components
   const contractComponents = defineContractComponents(world);
-  console.log("hello there again");
 
   // create client components
   const clientComponents = createClientComponents({ contractComponents });
