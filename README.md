@@ -20,7 +20,7 @@ Enigma leverages a combination of modern web technologies and blockchain mechani
 
 **Dojo:**
 
-**Argent Wallet SDK** Argent web wallet SDK provides seamless authentication and transaction capabilities for players, enhancing the overall user experience and ensuring secure management of player data and game-related transactions.
+**Argent Wallet SDK :** Argent web wallet SDK provides seamless authentication and transaction capabilities for players, enhancing the overall user experience and ensuring secure management of player data and game-related transactions.
 
 ## Running it Locally
 

@@ -1,10 +1,12 @@
 "use client";
 import * as React from "react";
 import Image from "next/image";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import { Loader2 } from "lucide-react";
+import { connect } from "starknetkit";
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "../ui/input";
@@ -23,11 +25,35 @@ export default function SuccessDialog({
   onLeaveGame: (name: string) => Promise<void>;
 }) {
   const [loadingLeave, setLoadingLeave] = React.useState(false);
-  const [name, setName] = React.useState("");
+  const [connection, setConnection] = useState<any>(null);
+  const [provider, setProvider] = useState<any>(null);
+  const [address, setAddress] = useState<any>(null);
+  const [disabled, setDisabled] = useState(false);
+  const [name, setName] = useState("");
 
-  const handleLeavegame = async () => {
+  const handleClaimAndLeave = async () => {
     setLoadingLeave(true);
-    await onLeaveGame(name ?? "Anonymous");
+    await onLeaveGame(name || "Anonymous");
+    const connection: any = await connect({
+      webWalletUrl: "https://web.argent.xyz",
+    });
+
+    if (connection && connection.isConnected) {
+      setConnection(connection);
+      setProvider(connection.account);
+      setAddress(connection.selectedAddress);
+      const tx = await connection.account.execute({
+        //let's assume this is an erc20 contract
+        contractAddress: "0x...",
+        selector: "transfer",
+        calldata: [
+          "0x...",
+          // ...
+        ],
+      });
+      await tx.wait();
+    }
+
     setLoadingLeave(false);
   };
   return (
@@ -62,15 +88,12 @@ export default function SuccessDialog({
                 <ChevronRight size={20} className="ml-0.5 w-4 h-4" />
               </Button>
               <Button
-                variant="outline"
-                className="rounded-lg  mt-1 w-full border-gray-400"
+                className="rounded-lg mt-1 border-gray-500 w-full"
                 disabled={loadingLeave}
-                onClick={handleLeavegame}
+                onClick={handleClaimAndLeave}
               >
-                {loadingLeave && (
-                  <Loader2 className="animate-spin w-4 h-4 mr-2" />
-                )}
-                Save Score
+                Claim NFT and End game
+                {loadingLeave && <Loader2 size={20} className="animate-spin" />}
               </Button>
             </div>
           </div>

@@ -1,10 +1,40 @@
+"use client";
+import { useState } from "react";
 import AppBar from "@/components/layout/AppBar";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { connect } from "starknetkit";
 
 export default function Home() {
+  const [connection, setConnection] = useState<any>(null);
+  const [provider, setProvider] = useState<any>(null);
+  const [address, setAddress] = useState<any>(null);
+  const [disabled, setDisabled] = useState(false);
+
+  const router = useRouter();
+
+  const connectAndPlay = async () => {
+    try {
+      setDisabled(true);
+      const connection: any = await connect({
+        webWalletUrl: "https://web.argent.xyz",
+      });
+
+      if (connection && connection.isConnected) {
+        setConnection(connection);
+        setProvider(connection?.account);
+        setAddress(connection.selectedAddress);
+      }
+      router.push("/play");
+    } catch (error) {
+      console.error("Error connecting wallet:", error);
+    } finally {
+      setDisabled(false);
+    }
+  };
+
   return (
     <>
       <AppBar />
@@ -31,9 +61,9 @@ export default function Home() {
                 leaderboard
               </p>
               <div className="mt-6">
-                <Link href="/play">
-                  <Button className="px-12">Start Playing</Button>
-                </Link>
+                <Button className="px-12" onClick={connectAndPlay}>
+                  Start Playing
+                </Button>
 
                 <div
                   className="absolute bottom-10 right-40 "
