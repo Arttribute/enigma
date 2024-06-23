@@ -57,3 +57,41 @@ export default function EnigmaImage({
     </>
   );
 }
+
+// export default function EnigmaImage({ imagesData }: { imagesData: string[] }) {
+//   const [blurRadius, setBlurRadius] = useState(20);
+//   const revealInterval = 1000;
+
+//   useEffect(() => {
+//     if (imagesData && imagesData.length > 0) {
+//       const interval = setInterval(() => {
+//         setBlurRadius((prev) => Math.max(prev - 1, 0));
+//       }, revealInterval);
+
+//       return () => clearInterval(interval);
+//     }
+//   }, [imagesData]);
+//   return (
+//     <>
+//       <div className="border m-2 p-0.5 rounded-lg  ">
+//         {imagesData && imagesData.length > 0 ? (
+//           <Image
+//             src={imagesData[0]}
+//             alt="Enigma"
+//             width={500}
+//             height={500}
+//             className="m-2 rounded-lg"
+//             style={{
+//               filter: `blur(${blurRadius}px)`,
+//               transition: "filter 1s ease-out",
+//             }}
+//           />
+//         ) : (
+//           <div className="flex justify-center items-center h-full w-full p-48">
+//             <p className="text-lg text-gray-500">Loading Image..</p>
+//           </div>
+//         )}
+//       </div>
+//     </>
+//   );
+// }
