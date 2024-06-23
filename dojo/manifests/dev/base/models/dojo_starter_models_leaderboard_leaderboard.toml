@@ -1,0 +1,15 @@
+kind = "DojoModel"
+class_hash = "0x4597adc7b42340205736b9bdaeb59c0f9af931e17f0de437bb8a23ee24f0e47"
+original_class_hash = "0x4597adc7b42340205736b9bdaeb59c0f9af931e17f0de437bb8a23ee24f0e47"
+abi = "manifests/dev/abis/base/models/dojo_starter_models_leaderboard_leaderboard.json"
+name = "dojo_starter::models::leaderboard::leaderboard"
+
+[[members]]
+name = "player"
+type = "ContractAddress"
+key = true
+
+[[members]]
+name = "score"
+type = "u8"
+key = false

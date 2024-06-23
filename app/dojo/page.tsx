@@ -1,12 +1,12 @@
 "use client";
 
-import { DojoProvider } from "@/lib/dojo/DojoContext";
 import { dojoConfig } from "@/dojoConfig";
+import { DojoProvider } from "@/lib/dojo/DojoContext";
 import { setup } from "@/lib/dojo/generated/setup";
 import { useEffect, useState } from "react";
 import App from "./App";
 
-export default function Play() {
+export default function Dojo() {
   const [setupResult, setSetupResult] = useState<any>(null);
 
   useEffect(() => {
